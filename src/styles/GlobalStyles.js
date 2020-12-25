@@ -1,0 +1,12 @@
+import { createGlobalStyles } from "styled-components"
+
+export const GlobalStyles = createGlobalStyles`
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Oswald:700&display=swap');
+
+
+body {
+  margin: 0;
+  background: #ECE5CE;
+  font-family: 'Open Sans', sans-serif;
+}
+`
