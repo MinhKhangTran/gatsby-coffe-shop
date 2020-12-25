@@ -1,8 +1,8 @@
 #header {
-  font-family: 'Oswald', sans-serif;
-  background: url('/coffee.jpg');
+  font-family: "Oswald", sans-serif;
+  background: url("/coffee.jpg");
   background-size: cover;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 #header #inner {
@@ -12,4 +12,8 @@
 
 #header h1 {
   margin: 0;
+}
+#header h1 a {
+  color: #ffffff;
+  text-decoration: none;
 }
