@@ -13,6 +13,9 @@ const BlogList = () => {
               title
               date(formatString: "MMMM D, YYYY")
             }
+            fields {
+              slug
+            }
             excerpt
           }
         }
@@ -28,6 +31,7 @@ const BlogList = () => {
             title={edge.node.frontmatter.title}
             date={edge.node.frontmatter.date}
             excerpt={edge.node.excerpt}
+            slug={edge.node.fields.slug}
           />
         )
       })}
