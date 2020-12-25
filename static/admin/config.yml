@@ -1,6 +1,7 @@
 # init netlify-cms
-backend: name:git-gateway
-  branch:master
+backend:
+  name: git-gateway
+  branch: master
 
 # Folders for img upload and browser
 
