@@ -37,4 +37,32 @@ exports.createPages = async function({ graphql, actions }) {
       },
     })
   })
+
+  /**
+   * Adding Pagination
+   * Create Pages for paginated Pages with {pageSize} posts per page
+   * It is like creating dynamically pages just with extra features
+   * 1.template
+   * 2.Extra feature
+   * 3.Loop
+   */
+
+  const posts = result.data.allMarkdownRemark.edges.length
+  const pageSize = 5
+  const pageCount = Math.ceil(posts / pageSize)
+  //  1.Template
+  const templatePath = path.resolve("./src/templates/BlogList.js")
+  // 2. Extra feature and 3. Loop
+  Array.from({ length: pageCount }, (_, index) => {
+    actions.createPage({
+      path: `/blog/${index + 1}`,
+      component: templatePath,
+      context: {
+        limit: pageSize,
+        skip: index * pageSize,
+        pageCount,
+        currentPage: index + 1,
+      },
+    })
+  })
 }
