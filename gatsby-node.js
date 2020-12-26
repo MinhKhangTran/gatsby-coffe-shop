@@ -59,16 +59,21 @@ exports.createPages = async function({ graphql, actions }) {
   //  1.Template
   const templatePath = path.resolve("./src/templates/BlogList.js")
   // 2. Extra feature and 3. Loop
-  Array.from({ length: pageCount }, (_, index) => {
-    actions.createPage({
-      path: `/blog/${index + 1}`,
+  for (let i = 0; i < pageCount; i++) {
+    let path = "/blog"
+    if (i > 0) {
+      path += `/${i + 1}`
+    }
+
+    createPage({
+      path,
       component: templatePath,
       context: {
         limit: pageSize,
-        skip: index * pageSize,
+        skip: i * pageSize,
         pageCount,
-        currentPage: index + 1,
+        currentPage: i + 1,
       },
     })
-  })
+  }
 }
