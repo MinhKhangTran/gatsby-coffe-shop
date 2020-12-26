@@ -40,7 +40,7 @@ const BlogList = () => {
         )
       })}
       <div>
-        <Link to="/Blog">Mehr</Link>
+        <Link to="/blog">Mehr</Link>
       </div>
     </div>
   )
