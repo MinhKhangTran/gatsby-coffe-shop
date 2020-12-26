@@ -37,7 +37,7 @@ exports.createPages = async function({ graphql, actions }) {
   posts.forEach(({ node }) => {
     createPage({
       path: node.fields.slug,
-      component: path.resolve("./src/templates/Blog.js"),
+      component: path.resolve("./src/templates/blog.js"),
       context: {
         slug: node.fields.slug,
       },
@@ -57,7 +57,7 @@ exports.createPages = async function({ graphql, actions }) {
   const pageSize = 5
   const pageCount = Math.ceil(postsLength / pageSize)
   //  1.Template
-  const templatePath = path.resolve("./src/templates/BlogList.js")
+  const templatePath = path.resolve("./src/templates/blog-list.js")
   // 2. Extra feature and 3. Loop
   for (let i = 0; i < pageCount; i++) {
     let path = "/blog"
