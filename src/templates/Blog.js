@@ -3,7 +3,7 @@ import { graphql } from "gatsby"
 import Layout from "../components/Layout"
 import styles from "./blog.module.css"
 
-const Blog = ({ data }) => {
+export default function BlogTemplate({ data }) {
   return (
     <Layout>
       <div className={styles.blog}>
@@ -24,4 +24,3 @@ export const query = graphql`
     }
   }
 `
-export default Blog

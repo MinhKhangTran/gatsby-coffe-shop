@@ -1,49 +1,51 @@
 import React from "react"
+
 import { graphql, Link } from "gatsby"
+
 import BlogPost from "../components/BlogPost"
 import Layout from "../components/Layout"
+
 import styles from "./blog-list.module.css"
 
-// get parameters from pageContext
-const BlogList = ({ data, pageContext }) => {
-  // Coditional rendering for next/prev Page
-  const prevPage =
+export default function BlogListTemplate({ data, pageContext }) {
+  // Generate the previous and next page URLs.
+  const previousPage =
     pageContext.currentPage === 2
       ? "/blog"
       : `/blog/${pageContext.currentPage - 1}`
   const nextPage = `/blog/${pageContext.currentPage + 1}`
-  const posts = data.allMarkdownRemark.edges
+
   return (
     <Layout>
       <div id={styles.hero}>
-        <h1>Der Kaffee Blog</h1>
+        <h1>The Coffee Blog</h1>
       </div>
       <main className={styles.blogList}>
-        {posts.map(post => {
-          return (
-            <BlogPost
-              key={post.node.id}
-              slug={post.node.fields.slug}
-              title={post.node.frontmatter.title}
-              date={post.node.frontmatter.date}
-              excerpt={post.node.excerpt}
-            ></BlogPost>
-          )
-        })}
+        {data.allMarkdownRemark.edges.map(node => (
+          <BlogPost
+            key={node.node.id}
+            slug={node.node.fields.slug}
+            title={node.node.frontmatter.title}
+            date={node.node.frontmatter.date}
+            excerpt={node.node.excerpt}
+          />
+        ))}
       </main>
-      {/* pagination stuff */}
+
       <div id={styles.pageLinks}>
         {pageContext.currentPage > 1 && (
-          <Link to={prevPage}>Vorherige Seite</Link>
+          <Link to={previousPage}>&lt;&lt; Previous Page</Link>
         )}
+
         {pageContext.currentPage < pageContext.pageCount && (
-          <Link to={nextPage}>Nächste Seite</Link>
+          <Link to={nextPage}>Next Page &gt;&gt;</Link>
         )}
       </div>
     </Layout>
   )
 }
 
+// The page query.
 export const query = graphql`
   query BlogListQuery($skip: Int!, $limit: Int!) {
     allMarkdownRemark(
@@ -68,5 +70,3 @@ export const query = graphql`
     }
   }
 `
-
-export default BlogList
