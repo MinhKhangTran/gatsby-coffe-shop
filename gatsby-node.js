@@ -20,6 +20,9 @@ exports.createPages = async function({ graphql, actions }) {
       allMarkdownRemark {
         edges {
           node {
+            frontmatter {
+              contentKey
+            }
             fields {
               slug
             }
@@ -28,8 +31,11 @@ exports.createPages = async function({ graphql, actions }) {
       }
     }
   `)
-  result.data.allMarkdownRemark.edges.forEach(({ node }) => {
-    actions.createPage({
+  const posts = result.data.allMarkdownRemark.edges.filter(
+    edge => edge.node.frontmatter.contentKey === "blog"
+  )
+  posts.forEach(({ node }) => {
+    createPage({
       path: node.fields.slug,
       component: path.resolve("./src/templates/Blog.js"),
       context: {
@@ -47,9 +53,9 @@ exports.createPages = async function({ graphql, actions }) {
    * 3.Loop
    */
 
-  const posts = result.data.allMarkdownRemark.edges.length
+  const postsLength = result.data.allMarkdownRemark.edges.length
   const pageSize = 5
-  const pageCount = Math.ceil(posts / pageSize)
+  const pageCount = Math.ceil(postsLength / pageSize)
   //  1.Template
   const templatePath = path.resolve("./src/templates/BlogList.js")
   // 2. Extra feature and 3. Loop
